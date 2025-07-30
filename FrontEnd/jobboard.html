@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Board | CasualConnect</title>
+  <link rel="stylesheet" href="landingpage.css" />
+  <link rel="stylesheet" href="jobboard.css" />
+</head>
+<body>
+  <!-- START: Copied Responsive Navbar from landingpage.html -->
+  <header>
+    <div class="logo">CasualConnect</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <div class="nav-container" id="navContainer">
+        <div class="nav-links">
+          <a href="landingpage.html">Home</a>
+          <a href="jobboard.html">Job Board</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- END: Copied Responsive Navbar -->
+
+  <main class="job-board-container">
+    <section class="filters">
+      <form class="filter-form" autocomplete="off">
+  <input type="text" name="search" placeholder="Search jobs..." class="filter-input" />
+  <select name="location" class="filter-select">
+    <option value="">All Locations</option>
+    <option value="Kigali">Kigali</option>
+    <option value="Huye">Huye</option>
+    <option value="Musanze">Musanze</option>
+  </select>
+  <select name="category" class="filter-select">
+    <option value="">All Categories</option>
+    <option value="Domestic Work">Cleaning</option>
+    <option value="Construction">Construction</option>
+    <option value="Shop Assistant">Retail</option>
+    <option value="Gardener">Gardening</option>
+    <option value="Delivery Rider">Delivery</option>
+  </select>
+  <button type="submit" class="search-btn" style="background:#00bfff;color:#fff;border:none;padding:0.7rem 1.3rem;border-radius:8px;font-weight:600;cursor:pointer;">Search</button>
+</form>
+    </section>
+    <section class="job-cards">
+      <!-- Example job cards (see previous messages for Unsplash/AI links) -->
+      <article class="job-card" data-category="Domestic Work">
+        <img src="homecleaner.jpg" alt="Cleaning lady" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">House Cleaner</h2>
+          <p class="job-location">Kigali</p>
+          <p class="job-description">Seeking reliable cleaner for part-time domestic work. Flex hours, weekly pay.</p>
+          <p class="job-contact">Contact: <a href="tel:+250123456789">+250 123 456 789</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Construction">
+        <img src="mason.jpg" alt="Construction worker" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Mason Worker</h2>
+          <p class="job-location">Huye</p>
+          <p class="job-description">Looking for skilled mason for ongoing project. Daily lunch provided.</p>
+          <p class="job-contact">Contact: <a href="tel:+250987654321">+250 987 654 321</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Shop Assistant">
+        <!-- AI GENERATED: Shop Assistant -->
+        <img src="shopassistant.jpg" alt="Retail helper" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Shop Assistant</h2>
+          <p class="job-location">Musanze</p>
+          <p class="job-description">Friendly shop assistant needed for busy retail store. Training provided.</p>
+          <p class="job-contact">Contact: <a href="tel:+250112233445">+250 112 233 445</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Gardener">
+        <!-- AI GENERATED: Gardener -->
+        <img src="gardener.jpg" alt="Gardener" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Gardener</h2>
+          <p class="job-location">Kigali</p>
+          <p class="job-description">Part-time gardener for home and office lawns. Experience preferred.</p>
+          <p class="job-contact">Contact: <a href="tel:+250223344556">+250 223 344 556</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Delivery Rider">
+        <img src="deliverydriver2.webp" alt="Delivery rider" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Delivery Rider</h2>
+          <p class="job-location">Huye</p>
+          <p class="job-description">Motorcycle delivery rider for food & parcels. Flexible shifts.</p>
+          <p class="job-contact">Contact: <a href="tel:+250334455667">+250 334 455 667</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 CasualConnect. Designed for community impact.
+  </footer>
+  <script src="jobboard.js"></script>
+  <script>
+    // Hamburger menu for responsiveness (copied from landingpage.html)
+    function toggleMenu() {
+      const container = document.getElementById("navContainer");
+      container.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
