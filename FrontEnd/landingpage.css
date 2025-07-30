@@ -1,0 +1,193 @@
+ * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fff;
+      color: #222;
+      line-height: 1.6;
+    }
+
+    /* NAVBAR */
+    header {
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .logo {
+      color: white;
+      font-size: 1.4rem;
+      font-weight: bold;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .nav-buttons {
+      margin-left: 2rem;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .nav-buttons a {
+      padding: 0.4rem 1rem;
+      border-radius: 5px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .login-btn {
+      background-color: transparent;
+      color: white;
+      border: 1px solid white;
+    }
+
+    .get-started-btn {
+      background-color: #00bfff;
+      color: white;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      height: 90vh;
+      background-image: url('https://images.unsplash.com/photo-1609103378601-b3e03881aa2e');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 1;
+    }
+
+    .hero-content {
+      color: white;
+      z-index: 2;
+      max-width: 600px;
+      padding: 1rem;
+    }
+
+    .hero-content h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-content .get-started-btn {
+      background-color: #00bfff;
+      color: white;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      text-decoration: none;
+    }
+
+    /* INFO SECTION */
+    .info {
+      padding: 3rem 2rem;
+      text-align: center;
+      background-color: #f7f7f7;
+    }
+
+    .info h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      color: #0066cc;
+    }
+
+    .info p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      background-color: #0066cc;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* RESPONSIVE */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      width: 25px;
+      height: 3px;
+      background: white;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links,
+      .nav-buttons {
+        display: none;
+        flex-direction: column;
+        background-color: #222;
+        position: absolute;
+        top: 60px;
+        right: 10px;
+        padding: 1rem;
+        border-radius: 5px;
+      }
+
+      .nav-links.show,
+      .nav-buttons.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .hero-content h2 {
+        font-size: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+    }
