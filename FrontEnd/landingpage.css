@@ -215,3 +215,498 @@
         font-size: 1rem;
       }
     }
+
+
+
+    /* --- NEW: Styling for Next Sections Below Hero --- */
+.mission-section, .built-rwanda-section {
+  padding: 3rem 2rem;
+  background-color: #f7f7f7;
+  border-radius: 18px;
+  margin: 2.5rem 0;
+}
+
+.mission-content, .rwanda-content {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.mission-list, .rwanda-list {
+  margin: 1.2rem 0 0 0;
+  padding: 0;
+  list-style: none;
+}
+.mission-list li, .rwanda-list li {
+  margin-bottom: 0.7rem;
+  font-size: 1.08rem;
+  display: flex;
+  align-items: center;
+}
+.dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background: #00bfff;
+  border-radius: 50%;
+  margin-right: 10px;
+  box-shadow: 0 2px 6px rgba(0,191,255,0.13);
+}
+
+.impact-section {
+  margin: 2.5rem 0;
+  text-align: center;
+}
+.impact-cards {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 2rem 0 1.5rem 0;
+}
+.impact-card {
+  background: #fff;
+  border-radius: 13px;
+  box-shadow: 0 2px 14px rgba(0,0,0,0.06);
+  padding: 1.3rem 1.5rem;
+  min-width: 160px;
+  max-width: 200px;
+  flex: 1;
+  text-align: center;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.impact-card:hover {
+  box-shadow: 0 4px 22px rgba(0,191,255,0.14);
+  transform: translateY(-5px) scale(1.03);
+}
+.impact-card img {
+  width: 55px;
+  margin-bottom: 0.5rem;
+}
+.impact-card h4 {
+  color: #00bfff;
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+.impact-card p {
+  color: #222;
+  font-size: 1.05rem;
+}
+
+.cta-section {
+  background: linear-gradient(90deg, #00bfff 0%, #0066cc 100%);
+  color: #fff;
+  border-radius: 18px;
+  text-align: center;
+  margin: 2.5rem 0 0 0;
+  padding: 3rem 1.5rem 2.5rem 1.5rem;
+}
+.cta-section h3 {
+  font-size: 2rem;
+  margin-bottom: 0.7rem;
+}
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 1.6rem;
+}
+.big-btn {
+  padding: 0.93rem 2.5rem;
+  font-size: 1.18rem;
+  background: #fff;
+  color: #00bfff;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.18s, color 0.18s;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.11);
+}
+.big-btn:hover {
+  background: #f7f7f7;
+  color: #0066cc;
+}
+
+/* Responsive for new sections */
+@media (max-width: 900px) {
+  .mission-content, .rwanda-content {
+    flex-direction: column;
+    gap: 1.3rem;
+  }
+  .impact-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- HOW IT WORKS SECTION --- */
+.how-section {
+  padding: 3rem 2rem;
+  background: #f7f7f7;
+  border-radius: 18px;
+  max-width: 1200px;
+  margin: 2.5rem auto;
+  box-shadow: 0 2px 18px rgba(0,0,0,0.04);
+}
+
+.how-section h3 {
+  text-align: center;
+  color: #0066cc;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
+  font-weight: 700;
+}
+
+.how-steps {
+  display: flex;
+  gap: 2.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.how-step {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+  padding: 2.3rem 1.3rem 1.7rem 1.3rem;
+  text-align: center;
+  width: 290px;
+  min-width: 220px;
+  transition: box-shadow 0.18s, transform 0.18s;
+  margin-bottom: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.how-step:hover {
+  box-shadow: 0 6px 32px rgba(0,191,255,0.14);
+  transform: translateY(-6px) scale(1.03);
+}
+
+.how-icon {
+  width: 72px;
+  height: 72px;
+  background: #eafdff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.1rem auto;
+  box-shadow: 0 2px 12px rgba(0,191,255,0.06);
+}
+.how-icon img {
+  width: 50px;
+  height: 50px;
+}
+
+.how-step h4 {
+  color: #00bfff;
+  font-size: 1.22rem;
+  margin-bottom: 0.7rem;
+  margin-top: 0;
+  font-weight: 700;
+}
+.how-step p {
+  color: #222;
+  font-size: 1.01rem;
+  margin-bottom: 0;
+}
+
+.how-imgs {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.how-imgs img {
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 18px rgba(0,191,255,0.08);
+}
+
+@media (max-width: 1000px) {
+  .how-steps {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+  .how-step {
+    width: 95%;
+    max-width: 400px;
+  }
+  .how-imgs img {
+    width: 120px;
+    height: 120px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* IMPACT SECTION IMAGES */
+.impact-imgs {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.impact-imgs img {
+  width: 250px;
+  height: 170px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 18px rgba(0,191,255,0.12);
+}
+
+/* BUILT FOR RWANDA SECTION */
+.built-rwanda-section {
+  padding: 3rem 2rem;
+  background: linear-gradient(120deg, #eafdff 0%, #f7f7f7 100%);
+  border-radius: 20px;
+  margin: 2.5rem 0;
+  box-shadow: 0 2px 22px rgba(0,191,255,0.08);
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.rwanda-content {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.rwanda-content > div:first-child {
+  flex: 1.5;
+}
+.rwanda-content > div:last-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+.rwanda-list {
+  margin-top: 1.3rem;
+  list-style: none;
+  padding: 0;
+}
+.rwanda-list li {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: #222;
+}
+.rwanda-list .dot {
+  width: 15px;
+  height: 15px;
+  margin-right: 12px;
+  background: #00bfff;
+  box-shadow: 0 2px 8px rgba(0,191,255,0.18);
+}
+
+.built-rwanda-section h3 {
+  color: #0066cc;
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.built-rwanda-section p {
+  font-size: 1.08rem;
+  color: #222;
+}
+.float-img, .rwanda-img {
+  width: 260px;
+  height: 180px;
+  border-radius: 15px;
+  object-fit: cover;
+  box-shadow: 0 4px 18px rgba(0,191,255,0.15);
+  margin-top: 1rem;
+}
+
+/* Responsive for Rwanda section */
+@media (max-width: 900px) {
+  .rwanda-content {
+    flex-direction: column;
+    gap: 1.2rem;
+    align-items: flex-start;
+  }
+  .float-img, .rwanda-img, .impact-imgs img {
+    width: 98vw;
+    max-width: 350px;
+    height: 160px;
+    margin: 0 auto;
+  }
+}
+
+
+
+
+
+
+
+/* --- INFO SECTION (Why CasualConnect) --- */
+.info {
+  padding: 3.5rem 2rem 2.8rem 2rem;
+  text-align: center;
+  background: linear-gradient(120deg, #e0f7fa 0%, #e3ecff 100%);
+  border-radius: 24px;
+  margin: 2rem auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 18px rgba(0, 191, 255, 0.07);
+}
+.info h3 {
+  font-size: 2.3rem;
+  margin-bottom: 1.3rem;
+  color: #1976d2;
+  font-weight: 800;
+  letter-spacing: -.5px;
+}
+.info p {
+  max-width: 700px;
+  margin: 0 auto 2.2rem auto;
+  font-size: 1.18rem;
+  color: #222;
+  line-height: 1.7;
+  font-weight: 500;
+}
+.info-visuals {
+  display: flex;
+  gap: 2.2rem;
+  justify-content: center;
+  align-items: flex-end;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.info-visuals .visual {
+  width: 120px;
+  height: 120px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 8px 32px rgba(25, 118, 210, 0.10);
+  transition: transform 0.2s;
+  background: #fff;
+}
+.info-visuals .visual:hover {
+  transform: scale(1.07) translateY(-4px);
+  box-shadow: 0 12px 40px rgba(25, 118, 210, 0.16);
+}
+
+/* --- MISSION SECTION --- */
+.mission-section {
+  padding: 3rem 2rem 2.5rem 2rem;
+  background: linear-gradient(120deg, #f8faff 0%, #e3f4fc 100%);
+  border-radius: 24px;
+  margin: 2.5rem auto;
+  max-width: 1100px;
+  box-shadow: 0 4px 18px rgba(0, 191, 255, 0.07);
+}
+.mission-content {
+  display: flex;
+  gap: 2.5rem;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.mission-content > div:first-child {
+  flex: 2;
+}
+.mission-content > div:last-child {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.mission-section h3 {
+  color: #1976d2;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-align: left;
+}
+.mission-section p {
+  font-size: 1.09rem;
+  color: #222;
+  margin-bottom: 1.3rem;
+  line-height: 1.7;
+}
+.mission-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mission-list li {
+  margin-bottom: 1.1rem;
+  font-size: 1.11rem;
+  color: #333;
+  display: flex;
+  align-items: flex-start;
+  font-weight: 500;
+}
+.mission-list .dot {
+  width: 14px;
+  height: 14px;
+  background: #00bfff;
+  border-radius: 50%;
+  margin-right: 12px;
+  margin-top: 5px;
+  box-shadow: 0 2px 8px rgba(25, 118, 210, 0.11);
+}
+.mission-imgs .float-img {
+  width: 210px;
+  height: 155px;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 6px 34px rgba(25, 118, 210, 0.13);
+  margin-top: 1rem;
+  background: #fff;
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .info-visuals { gap: 1.2rem; }
+  .info { padding: 2rem 0.5rem 1.5rem 0.5rem; }
+  .mission-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: stretch;
+  }
+  .mission-imgs .float-img {
+    width: 98vw;
+    max-width: 300px;
+    height: 120px;
+    margin: 0 auto;
+  }
+}

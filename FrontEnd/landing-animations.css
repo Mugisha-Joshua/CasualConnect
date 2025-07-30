@@ -1,0 +1,53 @@
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 1.1s cubic-bezier(0.23, 1, 0.32, 1), transform 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.fade-in-section.appear {
+  opacity: 1;
+  transform: none;
+}
+
+.slide-up-section {
+  opacity: 0;
+  transform: translateY(60px) scale(0.97);
+  transition: opacity 1.1s cubic-bezier(0.23, 1, 0.32, 1), transform 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.slide-up-section.appear {
+  opacity: 1;
+  transform: none;
+}
+
+.info-visuals, .how-imgs, .impact-imgs {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+.visual {
+  width: 120px;
+  height: 120px;
+  border-radius: 17px;
+  object-fit: cover;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  margin-bottom: 0.5rem;
+}
+.float-img, .sun-animate {
+  width: 230px;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.10);
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 900px) {
+  .visual, .float-img, .sun-animate {
+    width: 100px;
+    min-width: 80px;
+    max-width: 160px;
+  }
+}
+
+.bounce-in { animation: bounceIn 1.2s cubic-bezier(.8,-0.3,.2,1.25) both; }
+.bounce-in.delay-1 { animation-delay: .3s; }
