@@ -6,7 +6,14 @@
   margin: 6.5rem auto 2rem auto;
   padding: 0 1rem;
 }
-
+.job-board-title {
+  text-align: center;
+  color: #1976d2;
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 2.4rem;
+  letter-spacing: -.5px;
+}
 /* Filters styling - blend with landing page theme */
 .filters {
   background: #f7f7f7;
@@ -181,5 +188,24 @@
     height: 3px;
     background: #fff;
     border-radius: 2px;
+  }
+}
+
+
+
+.job-search-title {
+  margin-top: 80px;
+  margin-bottom: 1.3rem;
+  text-align: center;
+  color: #1976d2;
+  font-size: 2.3rem;
+  font-weight: 800;
+  letter-spacing: -.5px;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+@media (max-width: 700px) {
+  .job-search-title {
+    font-size: 1.4rem;
+    margin-top: 70px;
   }
 }

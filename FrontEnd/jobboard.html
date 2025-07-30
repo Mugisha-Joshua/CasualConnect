@@ -22,8 +22,7 @@
           <a href="landingpage.html">Home</a>
           <a href="jobboard.html">Job Board</a>
           <a href="about.html">About</a>
-          <a href="contact.html">Contact Us</a>
-
+          <a href="contact.html">Contact</a>
         </div>
         <div class="nav-buttons">
           <a href="login.html" class="login-btn">Login</a>
@@ -35,28 +34,40 @@
   <!-- END: Copied Responsive Navbar -->
 
   <main class="job-board-container">
+     <section class="search-title-section">
+      <h1 class="job-search-title">Find Jobs Near You</h1>
+    </section>
     <section class="filters">
       <form class="filter-form" autocomplete="off">
-  <input type="text" name="search" placeholder="Search jobs..." class="filter-input" />
-  <select name="location" class="filter-select">
-    <option value="">All Locations</option>
-    <option value="Kigali">Kigali</option>
-    <option value="Huye">Huye</option>
-    <option value="Musanze">Musanze</option>
-  </select>
-  <select name="category" class="filter-select">
-    <option value="">All Categories</option>
-    <option value="Domestic Work">Cleaning</option>
-    <option value="Construction">Construction</option>
-    <option value="Shop Assistant">Retail</option>
-    <option value="Gardener">Gardening</option>
-    <option value="Delivery Rider">Delivery</option>
-  </select>
-  <button type="submit" class="search-btn" style="background:#00bfff;color:#fff;border:none;padding:0.7rem 1.3rem;border-radius:8px;font-weight:600;cursor:pointer;">Search</button>
-</form>
+        <input type="text" name="search" placeholder="Search jobs..." class="filter-input" />
+        <select name="location" class="filter-select">
+          <option value="">All Locations</option>
+          <option value="Kigali">Kigali</option>
+          <option value="Huye">Huye</option>
+          <option value="Musanze">Musanze</option>
+          <option value="Rubavu">Rubavu</option>
+          <option value="Muhanga">Muhanga</option>
+          <option value="Rwamagana">Rwamagana</option>
+        </select>
+        <select name="category" class="filter-select">
+          <option value="">All Categories</option>
+          <option value="Domestic Work">Cleaning</option>
+          <option value="Construction">Construction</option>
+          <option value="Shop Assistant">Retail</option>
+          <option value="Gardener">Gardening</option>
+          <option value="Delivery Rider">Delivery</option>
+          <option value="Mover">Mover</option>
+          <option value="Babysitting">Babysitting</option>
+          <option value="Painter">Painting</option>
+          <option value="Plumber">Plumbing</option>
+          <option value="Pet Care">Pet Care</option>
+          <option value="Event Cleaner">Event Cleaning</option>
+        </select>
+        <button type="submit" class="search-btn" style="background:#00bfff;color:#fff;border:none;padding:0.7rem 1.3rem;border-radius:8px;font-weight:600;cursor:pointer;">Search</button>
+      </form>
     </section>
     <section class="job-cards">
-      <!-- Example job cards (see previous messages for Unsplash/AI links) -->
+      <!-- Existing and NEW job cards below -->
       <article class="job-card" data-category="Domestic Work">
         <img src="homecleaner.jpg" alt="Cleaning lady" class="job-image">
         <div class="job-card-content">
@@ -78,7 +89,6 @@
         </div>
       </article>
       <article class="job-card" data-category="Shop Assistant">
-        <!-- AI GENERATED: Shop Assistant -->
         <img src="shopassistant.jpg" alt="Retail helper" class="job-image">
         <div class="job-card-content">
           <h2 class="job-title">Shop Assistant</h2>
@@ -89,7 +99,6 @@
         </div>
       </article>
       <article class="job-card" data-category="Gardener">
-        <!-- AI GENERATED: Gardener -->
         <img src="gardener.jpg" alt="Gardener" class="job-image">
         <div class="job-card-content">
           <h2 class="job-title">Gardener</h2>
@@ -106,6 +115,97 @@
           <p class="job-location">Huye</p>
           <p class="job-description">Motorcycle delivery rider for food & parcels. Flexible shifts.</p>
           <p class="job-contact">Contact: <a href="tel:+250334455667">+250 334 455 667</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <!-- Additional Jobs Below -->
+      <article class="job-card" data-category="Mover">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Mover" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">House Mover</h2>
+          <p class="job-location">Kigali</p>
+          <p class="job-description">Assist with furniture moving for a local family. Good physical fitness required.</p>
+          <p class="job-contact">Contact: <a href="tel:+250556677889">+250 556 677 889</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Babysitting">
+        <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" alt="Babysitter" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Babysitter</h2>
+          <p class="job-location">Kigali, Gasabo</p>
+          <p class="job-description">Watch and play with two children in the afternoons. Snacks included.</p>
+          <p class="job-contact">Contact: <a href="tel:+250667788990">+250 667 788 990</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Painter">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Painter" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Painter</h2>
+          <p class="job-location">Musanze</p>
+          <p class="job-description">Help paint interior/exterior of new homes. Materials provided. Team work.</p>
+          <p class="job-contact">Contact: <a href="tel:+250778899001">+250 778 899 001</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Plumber">
+        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Plumber Helper" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Plumber Helper</h2>
+          <p class="job-location">Muhanga</p>
+          <p class="job-description">Assist a professional plumber with simple tasks and carrying equipment.</p>
+          <p class="job-contact">Contact: <a href="tel:+250889900112">+250 889 900 112</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Pet Care">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Pet Walker" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Pet Walker</h2>
+          <p class="job-location">Kigali, Remera</p>
+          <p class="job-description">Walk two friendly dogs each evening. Must love animals!</p>
+          <p class="job-contact">Contact: <a href="tel:+250991122334">+250 991 122 334</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Event Cleaner">
+        <img src="https://images.unsplash.com/photo-1465101178521-c1a9136a3bba?auto=format&fit=crop&w=600&q=80" alt="Event Cleaner" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Event Cleaner</h2>
+          <p class="job-location">Rwamagana</p>
+          <p class="job-description">Help clean up after a wedding event. Evening work, team provided.</p>
+          <p class="job-contact">Contact: <a href="tel:+250221133445">+250 221 133 445</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Shop Assistant">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Shop Helper" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Shop Helper</h2>
+          <p class="job-location">Rubavu</p>
+          <p class="job-description">Assist customers and organize shelves in a busy shop market. Flexible schedule.</p>
+          <p class="job-contact">Contact: <a href="tel:+250331122556">+250 331 122 556</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Gardener">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Community Gardener" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Community Gardener</h2>
+          <p class="job-location">Kigali, Kicukiro</p>
+          <p class="job-description">Help maintain community gardens. All tools provided.</p>
+          <p class="job-contact">Contact: <a href="tel:+250445566778">+250 445 566 778</a></p>
+          <button class="apply-btn">Apply</button>
+        </div>
+      </article>
+      <article class="job-card" data-category="Delivery Rider">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Delivery Helper" class="job-image">
+        <div class="job-card-content">
+          <h2 class="job-title">Delivery Helper</h2>
+          <p class="job-location">Kigali City</p>
+          <p class="job-description">Support a busy food delivery rider with pickups and drop-offs. Know the city well.</p>
+          <p class="job-contact">Contact: <a href="tel:+250556688999">+250 556 688 999</a></p>
           <button class="apply-btn">Apply</button>
         </div>
       </article>
