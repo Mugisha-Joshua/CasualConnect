@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us | CasualConnect</title>
+  <link rel="stylesheet" href="landingpage.css" />
+  <link rel="stylesheet" href="contact.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">CasualConnect</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <div class="nav-container" id="navContainer">
+        <div class="nav-links">
+          <a href="landingpage.html">Home</a>
+          <a href="jobboard.html">Job Board</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="nav-buttons">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <main class="contact-container">
+    <section class="contact-hero">
+      <h1>Contact Us</h1>
+      <p>Questions? Suggestions? Reach out and let's connect!</p>
+    </section>
+    <section class="contact-form-section">
+      <form class="contact-form" id="contactForm" autocomplete="off">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your name" />
+
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email address" />
+
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" required placeholder="How can we help you?" rows="5"></textarea>
+
+        <button type="submit" class="submit-btn">Send Message</button>
+      </form>
+      <div id="form-status" class="form-status"></div>
+    </section>
+  </main>
+  <footer>
+    &copy; 2025 CasualConnect. Designed for community impact.
+  </footer>
+  <script>
+    function toggleMenu() {
+      const container = document.getElementById("navContainer");
+      container.classList.toggle("show");
+    }
+
+    // Simple email sending using mailto (client-side fallback)
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        document.getElementById('form-status').textContent = "Please fill in all fields.";
+        return;
+      }
+
+      // Craft subject and body
+      const subject = encodeURIComponent("CasualConnect Contact Form Message from " + name);
+      const body = encodeURIComponent(
+        "Name: " + name + "\n" +
+        "Email: " + email + "\n\n" +
+        "Message:\n" + message
+      );
+
+      // Open mailto link
+      window.location.href = `mailto:mugishaochel@gmail.com?subject=${subject}&body=${body}`;
+      document.getElementById('form-status').textContent = "Opening your email client...";
+    });
+  </script>
+</body>
+</html>

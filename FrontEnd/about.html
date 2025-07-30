@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About | CasualConnect</title>
+  <link rel="stylesheet" href="landingpage.css" />
+  <link rel="stylesheet" href="about.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">CasualConnect</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <div class="nav-container" id="navContainer">
+        <div class="nav-links">
+          <a href="landingpage.html">Home</a>
+          <a href="jobboard.html">Job Board</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact Us</a>
+        </div>
+        <div class="nav-buttons">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="about-container">
+    <section class="about-hero">
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=1200&q=80" alt="Community working together" class="about-hero-image" />
+      <div class="about-hero-text">
+        <h1>About CasualConnect</h1>
+        <p>
+          Bridging the gap between local job seekers and small businesses or households in Rwanda looking for informal workers. 
+        </p>
+      </div>
+    </section>
+
+    <section class="about-mission">
+      <div class="about-image-text">
+        <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" alt="Domestic work" class="about-img" />
+        <div>
+          <h2>Our Mission</h2>
+          <p>
+            To connect youth and informal workers in Rwanda with real, short-term job opportunities—without the barriers of CVs or complicated apps. We empower both job seekers and local employers, creating a simple, web-based platform accessible on any device.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-problem">
+      <div class="about-image-text reverse">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Construction worker" class="about-img" />
+        <div>
+          <h2>The Problem</h2>
+          <p>
+            Many young people and informal workers in Rwanda struggle to find work. Most jobs are never advertised online, and current job platforms are designed for office jobs—not household help or casual labor. Instead, people rely on word-of-mouth or go door-to-door, making it difficult for both job seekers and employers to connect efficiently.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-solution">
+      <div class="about-image-text">
+        <img src="Screenshot (5).png" alt="Youth working" class="about-img" />
+        <div>
+          <h2>Our Solution</h2>
+          <p>
+            CasualConnect is a lightweight, mobile-friendly job board for informal and entry-level work. No account needed to browse. No CV required. We make it easy to post, find, and apply for jobs in a few taps—helping communities thrive and increasing financial stability for all.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-values">
+      <h2>Our Values</h2>
+      <ul>
+        <li>
+          <strong>Accessibility:</strong> Designed for everyone, even on low-end devices.
+        </li>
+        <li>
+          <strong>Trust & Simplicity:</strong> No complicated forms or apps. Real jobs, real people, real impact.
+        </li>
+        <li>
+          <strong>Community Impact:</strong> Reducing unemployment and boosting Rwanda’s economy by connecting those who need work with those who need help.
+        </li>
+      </ul>
+    </section>
+
+    <section class="about-cta">
+      <div>
+        <h2>Join Us in Making a Difference</h2>
+        <p>
+          Whether you are seeking work or need a helping hand, CasualConnect is your bridge to opportunity in your community.
+        </p>
+        <a href="jobboard.html" class="get-started-btn">View Job Opportunities</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    &copy; 2025 CasualConnect. Designed for community impact.
+  </footer>
+  <script>
+    function toggleMenu() {
+      const container = document.getElementById("navContainer");
+      container.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
