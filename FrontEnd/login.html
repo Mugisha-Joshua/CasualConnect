@@ -5,6 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CasualConnect Login</title>
   <link rel="stylesheet" href="login.css">
+  <style>
+    .hidden { display: none; }
+    .error { color: red; margin: 0.5rem 0; }
+    .success { color: green; margin: 0.5rem 0; }
+  </style>
 </head>
 <body>
 
@@ -22,7 +27,6 @@
           <a href="jobboard.html">Job Board</a>
           <a href="about.html">About</a>
           <a href="contact.html">Contact Us</a>
-
         </div>
         <div class="nav-buttons">
           <a href="login.html" class="login-btn">Login</a>
@@ -57,7 +61,7 @@
         </form>
 
         <div class="toggle-link">
-          Don't have an account? <a onclick="showSignUp()">Sign up here</a>
+          Don't have an account? <a href="javascript:void(0)" onclick="showSignUp()">Sign up here</a>
         </div>
       </div>
 
@@ -89,46 +93,60 @@
         </form>
 
         <div class="toggle-link">
-          Already have an account? <a onclick="showLogin()">Login here</a>
+          Already have an account? <a href="javascript:void(0)" onclick="showLogin()">Login here</a>
         </div>
       </div>
 
     </div>
   </div>
 
-  <script>
-    function toggleMenu() {
+  <!-- Firebase scripts and authentication logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    // Your web app's Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVaPpzeyRy9E-qoUPqP9IbsuVNMkisRwI",
+      authDomain: "casualconnect-001.firebaseapp.com",
+      projectId: "casualconnect-001",
+      storageBucket: "casualconnect-001.appspot.com",
+      messagingSenderId: "244256750220",
+      appId: "1:244256750220:web:a69d2413c3042c7c3cd9a9"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Menu toggling for mobile
+    window.toggleMenu = function() {
       const nav = document.getElementById("navContainer");
       nav.classList.toggle("show");
-    }
+    };
 
-    function showSignUp() {
+    // Show/Hide forms
+    window.showSignUp = function() {
       document.getElementById('loginForm').classList.add('hidden');
       document.getElementById('signupForm').classList.remove('hidden');
-    }
-
-    function showLogin() {
+      clearStatus();
+    };
+    window.showLogin = function() {
       document.getElementById('signupForm').classList.add('hidden');
       document.getElementById('loginForm').classList.remove('hidden');
+      clearStatus();
+    };
+    function clearStatus() {
+      document.getElementById('loginError').textContent = "";
+      document.getElementById('signupError').textContent = "";
+      document.getElementById('loginError').classList.remove('success');
+      document.getElementById('signupError').classList.remove('success');
     }
 
-    document.getElementById('login').addEventListener('submit', function (e) {
+    // SIGNUP FORM HANDLER
+    document.getElementById('signup').addEventListener('submit', async function (e) {
       e.preventDefault();
-
-      const email = document.getElementById('loginEmail').value.trim();
-      const password = document.getElementById('loginPassword').value.trim();
-      const role = document.getElementById('loginRole').value;
-
-      if (!email || !password || !role) {
-        document.getElementById('loginError').textContent = "Please fill in all fields.";
-        return;
-      }
-
-      alert(`Logged in as ${role.toUpperCase()}!\nEmail: ${email}`);
-    });
-
-    document.getElementById('signup').addEventListener('submit', function (e) {
-      e.preventDefault();
+      clearStatus();
 
       const name = document.getElementById('name').value.trim();
       const email = document.getElementById('signupEmail').value.trim();
@@ -140,9 +158,69 @@
         return;
       }
 
-      alert(`Signed up as ${role.toUpperCase()}!\nWelcome, ${name}`);
+      try {
+        // Create user in Firebase Auth
+        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+        // Store extra info in displayName (format: "role|name")
+        await updateProfile(userCredential.user, {
+          displayName: role + "|" + name
+        });
+        // Optional: Store additional info in localStorage for immediate use
+        localStorage.setItem('userRole', role);
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
+
+        document.getElementById('signupError').classList.add('success');
+        document.getElementById('signupError').textContent = "Sign up successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = "jobboard.html";
+        }, 1200);
+      } catch (error) {
+        document.getElementById('signupError').classList.remove('success');
+        document.getElementById('signupError').textContent = error.message;
+      }
+    });
+
+    // LOGIN FORM HANDLER
+    document.getElementById('login').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      clearStatus();
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const role = document.getElementById('loginRole').value;
+
+      if (!email || !password || !role) {
+        document.getElementById('loginError').textContent = "Please fill in all fields.";
+        return;
+      }
+
+      try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+        let displayRole = "";
+        let displayName = "";
+        if (user.displayName && user.displayName.includes("|")) {
+          [displayRole, displayName] = user.displayName.split("|");
+        }
+        if (displayRole !== role) {
+          document.getElementById('loginError').textContent = "Selected role does not match your registered role.";
+          return;
+        }
+        localStorage.setItem('userRole', displayRole);
+        localStorage.setItem('userName', displayName || "");
+        localStorage.setItem('userEmail', user.email);
+
+        document.getElementById('loginError').classList.add('success');
+        document.getElementById('loginError').textContent = "Login successful! Redirecting...";
+        setTimeout(() => {
+          window.location.href = "jobboard.html";
+        }, 1200);
+      } catch (error) {
+        document.getElementById('loginError').classList.remove('success');
+        document.getElementById('loginError').textContent = error.message;
+      }
     });
   </script>
-
 </body>
 </html>

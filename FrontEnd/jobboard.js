@@ -93,3 +93,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   });
 });
+
+ // Hamburger menu for responsiveness (copied from landingpage.html)
+    function toggleMenu() {
+      const container = document.getElementById("navContainer");
+      container.classList.toggle("show");
+    }
