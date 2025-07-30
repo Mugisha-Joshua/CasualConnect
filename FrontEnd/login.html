@@ -1,121 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>CasualConnect Login</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f7f7f7;
-      margin: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
-
-    .login-container {
-      background: white;
-      padding: 2rem;
-      border-radius: 10px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-    }
-
-    h2 {
-      margin-bottom: 1rem;
-      text-align: center;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 0.75rem;
-      margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #0066cc;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    button:hover {
-      background-color: #004d99;
-    }
-
-    .error {
-      color: red;
-      margin-bottom: 1rem;
-      font-size: 0.9rem;
-      text-align: center;
-    }
-
-    @media (max-width: 480px) {
-      .login-container {
-        margin: 1rem;
-        padding: 1.5rem;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="login.css">
 </head>
 <body>
 
-  <div class="login-container">
-    <h2>Login to CasualConnect</h2>
-    <div class="error" id="errorMsg"></div>
-    <form id="loginForm">
-      <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
+  <header>
+    <div class="logo">CasualConnect</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <div class="nav-container" id="navContainer">
+        <div class="nav-links">
+          <a href="landingpage.html">Home</a>
+          <a href="job-board.html">Job Board</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
-      <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password" required>
+  <div class="wrapper">
+    <div class="container">
 
-      <label for="role">I am a:</label>
-      <select id="role" required>
-        <option value="">Select Role</option>
-        <option value="seeker">Job Seeker</option>
-        <option value="employer">Employer</option>
-      </select>
+      <!-- Login Form -->
+      <div id="loginForm">
+        <h2>Login to CasualConnect</h2>
+        <div class="error" id="loginError"></div>
+        <form id="login">
+          <label for="loginEmail">Email</label>
+          <input type="email" id="loginEmail" placeholder="Enter your email" required>
 
-      <button type="submit">Login</button>
-    </form>
+          <label for="loginPassword">Password</label>
+          <input type="password" id="loginPassword" placeholder="Enter your password" required>
+
+          <label for="loginRole">I am a:</label>
+          <select id="loginRole" required>
+            <option value="">Select Role</option>
+            <option value="seeker">Job Seeker</option>
+            <option value="employer">Employer</option>
+          </select>
+
+          <button type="submit">Login</button>
+        </form>
+
+        <div class="toggle-link">
+          Don't have an account? <a onclick="showSignUp()">Sign up here</a>
+        </div>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="signupForm" class="hidden">
+        <h2>Create an Account</h2>
+        <div class="error" id="signupError"></div>
+        <form id="signup">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required>
+
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" placeholder="Enter your email" required>
+
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" placeholder="Create a password" required>
+
+          <label for="signupPhone">Phone (optional)</label>
+          <input type="tel" id="signupPhone" placeholder="Enter your phone number">
+
+          <label for="signupRole">I am a:</label>
+          <select id="signupRole" required>
+            <option value="">Select Role</option>
+            <option value="seeker">Job Seeker</option>
+            <option value="employer">Employer</option>
+          </select>
+
+          <button type="submit">Sign Up</button>
+        </form>
+
+        <div class="toggle-link">
+          Already have an account? <a onclick="showLogin()">Login here</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 
   <script>
-    const loginForm = document.getElementById('loginForm');
-    const errorMsg = document.getElementById('errorMsg');
+    function toggleMenu() {
+      const nav = document.getElementById("navContainer");
+      nav.classList.toggle("show");
+    }
 
-    loginForm.addEventListener('submit', function(e) {
+    function showSignUp() {
+      document.getElementById('loginForm').classList.add('hidden');
+      document.getElementById('signupForm').classList.remove('hidden');
+    }
+
+    function showLogin() {
+      document.getElementById('signupForm').classList.add('hidden');
+      document.getElementById('loginForm').classList.remove('hidden');
+    }
+
+    document.getElementById('login').addEventListener('submit', function (e) {
       e.preventDefault();
 
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      const role = document.getElementById('role').value;
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const role = document.getElementById('loginRole').value;
 
       if (!email || !password || !role) {
-        errorMsg.textContent = "Please fill in all fields.";
+        document.getElementById('loginError').textContent = "Please fill in all fields.";
         return;
       }
 
-      // Simulated login success (replace with Firebase later)
       alert(`Logged in as ${role.toUpperCase()}!\nEmail: ${email}`);
-      // Redirect based on role (mock)
-      // window.location.href = role === 'employer' ? 'employer-dashboard.html' : 'home.html';
+    });
+
+    document.getElementById('signup').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value.trim();
+      const role = document.getElementById('signupRole').value;
+
+      if (!name || !email || !password || !role) {
+        document.getElementById('signupError').textContent = "Please fill in all required fields.";
+        return;
+      }
+
+      alert(`Signed up as ${role.toUpperCase()}!\nWelcome, ${name}`);
     });
   </script>
 

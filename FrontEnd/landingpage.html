@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>CasualConnect</title>
-   <link rel="stylesheet" href="landingpage.css" />
+ <link rel="stylesheet" href="landingpage.css">
 </head>
 <body>
 
@@ -16,14 +16,16 @@
       <div></div>
     </div>
     <nav>
-      <div class="nav-links" id="navLinks">
-        <a href="index.html">Home</a>
-        <a href="job-board.html">Job Board</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div class="nav-buttons" id="navButtons">
-        <a href="login.html" class="login-btn">Login</a>
-        <a href="login.html" class="get-started-btn">Get Started</a>
+      <div class="nav-container" id="navContainer">
+        <div class="nav-links">
+          <a href="landingpage.html">Home</a>
+          <a href="job-board.html">Job Board</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        </div>
       </div>
     </nav>
   </header>
@@ -49,10 +51,8 @@
 
   <script>
     function toggleMenu() {
-      const navLinks = document.getElementById("navLinks");
-      const navButtons = document.getElementById("navButtons");
-      navLinks.classList.toggle("show");
-      navButtons.classList.toggle("show");
+      const container = document.getElementById("navContainer");
+      container.classList.toggle("show");
     }
   </script>
 
