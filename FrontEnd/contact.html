@@ -6,6 +6,23 @@
   <title>Contact Us | CasualConnect</title>
   <link rel="stylesheet" href="landingpage.css" />
   <link rel="stylesheet" href="contact.css" />
+  <style>
+    .logout-red-btn {
+      background: #e53935;
+      color: #fff;
+      padding: 0.45rem 1.2rem;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      margin-left: 0.5rem;
+      transition: background 0.18s;
+    }
+    .logout-red-btn:hover {
+      background: #b71c1c;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -17,15 +34,11 @@
     </div>
     <nav>
       <div class="nav-container" id="navContainer">
-        <div class="nav-links">
-          <a href="landingpage.html">Home</a>
-          <a href="jobboard.html">Job Board</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact Us</a>
+        <div class="nav-links" id="navLinks">
+          <!-- Links will be populated by JS -->
         </div>
-        <div class="nav-buttons">
-          <a href="login.html" class="login-btn">Login</a>
-          <a href="login.html" class="get-started-btn">Get Started</a>
+        <div class="nav-buttons" id="navButtons">
+          <!-- Auth buttons will be populated by JS -->
         </div>
       </div>
     </nav>
@@ -83,6 +96,80 @@
       // Open mailto link
       window.location.href = `mailto:mugishaochel@gmail.com?subject=${subject}&body=${body}`;
       document.getElementById('form-status').textContent = "Opening your email client...";
+    });
+  </script>
+  <script type="module">
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVaPpzeyRy9E-qoUPqP9IbsuVNMkisRwI",
+      authDomain: "casualconnect-001.firebaseapp.com",
+      projectId: "casualconnect-001",
+      storageBucket: "casualconnect-001.appspot.com",
+      messagingSenderId: "244256750220",
+      appId: "1:244256750220:web:a69d2413c3042c7c3cd9a9"
+    };
+
+    let app;
+    if (!getApps().length) {
+      app = initializeApp(firebaseConfig);
+    } else {
+      app = getApps()[0];
+    }
+    const auth = getAuth(app);
+
+    function renderNav(loggedIn, role) {
+      // Always show: Home, About, Contact
+      let navLinks = `
+        <a href="landingpage.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      `;
+      if (loggedIn) {
+        navLinks += `<a href="jobboard.html">Job Board</a>`;
+        if (role === "employer") {
+          navLinks += `<a href="postjob.html" id="postJobLink">Post a Job</a>`;
+        }
+      }
+      document.getElementById("navLinks").innerHTML = navLinks;
+
+      let navButtons = "";
+      if (loggedIn) {
+        navButtons = `<button id="logoutBtn" class="logout-red-btn">Logout</button>`;
+      } else {
+        navButtons = `
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        `;
+      }
+      document.getElementById("navButtons").innerHTML = navButtons;
+
+      // Add logout handler if button exists
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) {
+        logoutBtn.onclick = function() {
+          signOut(auth).then(() => {
+            localStorage.clear();
+            renderNav(false, null);
+            window.location.href = "landingpage.html";
+          });
+        };
+      }
+    }
+
+    onAuthStateChanged(auth, (user) => {
+      let role = "";
+      if (user) {
+        if (user.displayName && user.displayName.includes('|')) {
+          [role] = user.displayName.split('|');
+        } else {
+          role = localStorage.getItem('userRole');
+        }
+        renderNav(true, role);
+      } else {
+        renderNav(false, null);
+      }
     });
   </script>
 </body>

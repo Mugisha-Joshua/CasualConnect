@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Post a Job | CasualConnect</title>
+  <link rel="stylesheet" href="login.css">
+  <style>
+    body {
+      background: #f5f8fa;
+      font-family: 'Segoe UI', Arial, sans-serif;
+    }
+    .wrapper {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 50px;
+    }
+    .container {
+      background: #fff;
+      padding: 2rem 2.5rem;
+      border-radius: 10px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      max-width: 450px;
+      width: 100%;
+    }
+    .container h2 {
+      color: #2185d0;
+      margin-bottom: 1rem;
+    }
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: #555;
+      font-weight: 500;
+    }
+    input, textarea, select, button {
+      width: 100%;
+      padding: 0.7rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+    textarea {
+      min-height: 80px;
+    }
+    button {
+      background: #2185d0;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:hover {
+      background: #1678c2;
+    }
+    .error, .success {
+      margin: 0.7rem 0;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    .error { color: #e53935; }
+    .success { color: #21ba45; }
+    .preview-img {
+      width: 100%;
+      max-height: 180px;
+      object-fit: contain;
+      margin-bottom: 0.7rem;
+      border-radius: 4px;
+      display: none;
+    }
+    /* Responsive Navbar styles (for hamburger menu) */
+    .hamburger { display: none; cursor: pointer; }
+    .hamburger div { width:25px; height:3px; background: #2185d0; margin:5px 0;}
+    @media (max-width: 800px) {
+      .nav-container { flex-direction: column; }
+      .nav-links, .nav-buttons {
+        display: none;
+      }
+      .nav-container.show .nav-links,
+      .nav-container.show .nav-buttons {
+        display: block;
+        background: #fff;
+        padding-bottom: 1rem;
+      }
+      .hamburger { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Responsive Navbar (same as other pages) -->
+  <header>
+    <div class="logo">CasualConnect</div>
+    <div class="hamburger" onclick="toggleMenu()">
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <nav>
+      <div class="nav-container" id="navContainer">
+        <div class="nav-links">
+          <a href="landingpage.html">Home</a>
+          <a href="jobboard.html">Job Board</a>
+          <a href="postjob.html" id="postJobLink" style="display:none;">Post a Job</a>
+          <a href="about.html">About</a>
+          <a href="contact.html">Contact</a>
+        </div>
+        <div class="nav-buttons">
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- End Navbar -->
+
+  <div class="wrapper">
+    <div class="container">
+      <h2>Post a Job</h2>
+      <div id="statusMsg"></div>
+      <form id="jobForm" autocomplete="off">
+        <div class="form-group">
+          <label for="jobTitle">Job Title</label>
+          <input type="text" id="jobTitle" required placeholder="e.g. Part-time Barista">
+        </div>
+        <div class="form-group">
+          <label for="company">Company/Organization</label>
+          <input type="text" id="company" required placeholder="e.g. Java Cafe">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" id="location" required placeholder="e.g. Kampala, Uganda">
+        </div>
+        <div class="form-group">
+          <label for="jobType">Job Type</label>
+          <select id="jobType" required>
+            <option value="">Select Type</option>
+            <option value="part-time">Part-time</option>
+            <option value="full-time">Full-time</option>
+            <option value="casual">Casual</option>
+            <option value="temporary">Temporary</option>
+            <option value="contract">Contract</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="description">Job Description</label>
+          <textarea id="description" required placeholder="Describe the job role, requirements, etc."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="telephone">Employer Telephone</label>
+          <input type="tel" id="telephone" required placeholder="e.g. +250123456789">
+        </div>
+        <div class="form-group">
+          <label for="jobImage">Job Photo (optional)</label>
+          <input type="file" id="jobImage" accept="image/*">
+          <img id="previewImg" class="preview-img" alt="Preview">
+        </div>
+        <button type="submit">Post Job</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // Hamburger menu toggle for responsive navbar
+    function toggleMenu() {
+      const nav = document.getElementById("navContainer");
+      nav.classList.toggle("show");
+    }
+  </script>
+  <script type="module">
+    // Firebase setup (same as login.html)
+    import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyAVaPpzeyRy9E-qoUPqP9IbsuVNMkisRwI",
+      authDomain: "casualconnect-001.firebaseapp.com",
+      projectId: "casualconnect-001",
+      storageBucket: "casualconnect-001.appspot.com",
+      messagingSenderId: "244256750220",
+      appId: "1:244256750220:web:a69d2413c3042c7c3cd9a9"
+    };
+    let app;
+    if (!getApps().length) {
+      app = initializeApp(firebaseConfig);
+    } else {
+      app = getApps()[0];
+    }
+    const auth = getAuth(app);
+
+    // Show "Post a Job" only for logged-in employers
+    onAuthStateChanged(auth, (user) => {
+      const postJobLink = document.getElementById('postJobLink');
+      let role = "";
+      if (!user) {
+        window.location.href = "login.html";
+      } else {
+        if (user.displayName && user.displayName.includes('|')) {
+          [role] = user.displayName.split('|');
+        } else {
+          role = localStorage.getItem('userRole');
+        }
+        if (role === "employer") {
+          if (postJobLink) postJobLink.style.display = "inline-block";
+        } else {
+          document.querySelector(".container").innerHTML = 
+            "<h2>Access Denied</h2><div class='error'>Only registered employers can post jobs.</div>";
+          if (postJobLink) postJobLink.style.display = "none";
+        }
+      }
+    });
+
+    // Preview image on file select
+    const jobImageInput = document.getElementById('jobImage');
+    const previewImg = document.getElementById('previewImg');
+    let jobImageBase64 = "";
+    jobImageInput.addEventListener('change', function() {
+      const file = this.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          previewImg.src = e.target.result;
+          previewImg.style.display = "block";
+          jobImageBase64 = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        previewImg.style.display = "none";
+        jobImageBase64 = "";
+      }
+    });
+
+    // Handle job form submission (save job to localStorage for now)
+    document.getElementById('jobForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const statusMsg = document.getElementById('statusMsg');
+      statusMsg.textContent = "";
+
+      // Get form values
+      const job = {
+        id: "job" + Date.now(),
+        title: document.getElementById('jobTitle').value.trim(),
+        company: document.getElementById('company').value.trim(),
+        location: document.getElementById('location').value.trim(),
+        type: document.getElementById('jobType').value,
+        description: document.getElementById('description').value.trim(),
+        telephone: document.getElementById('telephone').value.trim(),
+        image: jobImageBase64,
+        postedAt: new Date().toISOString()
+      };
+
+      // Get employer info from localStorage or Firebase user
+      let userName = localStorage.getItem('userName') || "";
+      let userEmail = localStorage.getItem('userEmail') || "";
+      if (auth.currentUser) {
+        userEmail = auth.currentUser.email || userEmail;
+        if (auth.currentUser.displayName && auth.currentUser.displayName.includes('|')) {
+          [, userName] = auth.currentUser.displayName.split('|');
+        }
+      }
+      job.postedBy = userName;
+      job.email = userEmail;
+
+      // Basic validation
+      if (!job.title || !job.company || !job.location || !job.type || !job.description || !job.telephone) {
+        statusMsg.textContent = "Please fill in all fields!";
+        statusMsg.className = "error";
+        return;
+      }
+
+      let jobs = JSON.parse(localStorage.getItem('jobs') || "[]");
+      jobs.unshift(job); // latest first
+      localStorage.setItem('jobs', JSON.stringify(jobs));
+
+      statusMsg.textContent = "Job posted successfully!";
+      statusMsg.className = "success";
+      document.getElementById('jobForm').reset();
+      previewImg.style.display = "none";
+      jobImageBase64 = "";
+      setTimeout(() => { window.location.href = "jobboard.html"; }, 1200);
+    });
+
+    // Logout function (just redirect for now)
+    document.getElementById('logoutBtn').onclick = function() {
+      signOut(auth).then(() => {
+        localStorage.clear();
+        window.location.href = "login.html";
+      });
+    };
+  </script>
+</body>
+</html>
