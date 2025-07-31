@@ -188,9 +188,9 @@
     }
   </script>
   <script type="module">
-    // Firebase setup (same as login.html)
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAVaPpzeyRy9E-qoUPqP9IbsuVNMkisRwI",
@@ -207,6 +207,7 @@
       app = getApps()[0];
     }
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
     // Show "Post a Job" only for logged-in employers
     onAuthStateChanged(auth, (user) => {
@@ -250,15 +251,14 @@
       }
     });
 
-    // Handle job form submission (save job to localStorage for now)
-    document.getElementById('jobForm').addEventListener('submit', function(e) {
+    // Handle job form submission (save job to Firestore)
+    document.getElementById('jobForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const statusMsg = document.getElementById('statusMsg');
       statusMsg.textContent = "";
 
       // Get form values
       const job = {
-        id: "job" + Date.now(),
         title: document.getElementById('jobTitle').value.trim(),
         company: document.getElementById('company').value.trim(),
         location: document.getElementById('location').value.trim(),
@@ -280,6 +280,7 @@
       }
       job.postedBy = userName;
       job.email = userEmail;
+      job.userId = auth.currentUser ? auth.currentUser.uid : null;
 
       // Basic validation
       if (!job.title || !job.company || !job.location || !job.type || !job.description || !job.telephone) {
@@ -288,16 +289,18 @@
         return;
       }
 
-      let jobs = JSON.parse(localStorage.getItem('jobs') || "[]");
-      jobs.unshift(job); // latest first
-      localStorage.setItem('jobs', JSON.stringify(jobs));
-
-      statusMsg.textContent = "Job posted successfully!";
-      statusMsg.className = "success";
-      document.getElementById('jobForm').reset();
-      previewImg.style.display = "none";
-      jobImageBase64 = "";
-      setTimeout(() => { window.location.href = "jobboard.html"; }, 1200);
+      try {
+        await addDoc(collection(db, "jobs"), job);
+        statusMsg.textContent = "Job posted successfully!";
+        statusMsg.className = "success";
+        document.getElementById('jobForm').reset();
+        previewImg.style.display = "none";
+        jobImageBase64 = "";
+        setTimeout(() => { window.location.href = "jobboard.html"; }, 1200);
+      } catch (err) {
+        statusMsg.textContent = "Error posting job. Please try again.";
+        statusMsg.className = "error";
+      }
     });
 
     // Logout function

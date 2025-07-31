@@ -276,8 +276,8 @@
   <script type="module">
     import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
     import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
+    import { getFirestore, collection, getDocs, doc, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-    // Your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyAVaPpzeyRy9E-qoUPqP9IbsuVNMkisRwI",
       authDomain: "casualconnect-001.firebaseapp.com",
@@ -294,53 +294,9 @@
       app = getApps()[0];
     }
     const auth = getAuth(app);
+    const db = getFirestore(app);
 
-    // NAVBAR LOGIC
-    function renderNav(loggedIn, role) {
-      // Always show: Home, About, Contact
-      let navLinks = `
-        <a href="landingpage.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
-      `;
-      if (loggedIn) {
-        navLinks += `<a href="jobboard.html">Job Board</a>`;
-        if (role === "employer") {
-          navLinks += `<a href="postjob.html" id="postJobLink">Post a Job</a>`;
-        }
-      }
-      document.getElementById("navLinks").innerHTML = navLinks;
-
-      let navButtons = "";
-      if (loggedIn) {
-        navButtons = `<button id="logoutBtn" class="logout-red-btn">Logout</button>`;
-      } else {
-        navButtons = `
-          <a href="login.html" class="login-btn">Login</a>
-          <a href="login.html" class="get-started-btn">Get Started</a>
-        `;
-      }
-      document.getElementById("navButtons").innerHTML = navButtons;
-
-      // Add logout handler if present
-      const logoutBtn = document.getElementById("logoutBtn");
-      if (logoutBtn) {
-        logoutBtn.onclick = function() {
-          signOut(auth).then(() => {
-            localStorage.clear();
-            renderNav(false, null);
-            window.location.href = "landingpage.html";
-          });
-        };
-      }
-    }
-
-    // Only declare ONCE at the top
-    let loggedInUser = null;
-    let loggedInEmail = null;
-    let loggedInRole = null;
-
-    // Static jobs (all restored, including the Tutor job)
+    // --- STATIC JOBS DATA ---
     const staticJobs = [
       {
         id: "static-tutor",
@@ -539,6 +495,68 @@
       }
     ];
 
+    // --- ADD STATIC JOBS TO FIRESTORE (ONCE) ---
+    async function addStaticJobsIfNotExist() {
+      const jobsRef = collection(db, "jobs");
+      const dbJobsSnap = await getDocs(jobsRef);
+      const dbTitles = new Set();
+      dbJobsSnap.forEach(docSnap => {
+        const data = docSnap.data();
+        if (data.title && data.isStatic) dbTitles.add(data.title + "___STATIC");
+        else if (data.title) dbTitles.add(data.title);
+      });
+      for (const job of staticJobs) {
+        const key = job.title + (job.isStatic ? "___STATIC" : "");
+        if (!dbTitles.has(key)) {
+          const jobToAdd = {...job};
+          delete jobToAdd.id;
+          await addDoc(jobsRef, jobToAdd);
+        }
+      }
+    }
+
+    // NAVBAR LOGIC (unchanged)
+    function renderNav(loggedIn, role) {
+      let navLinks = `
+        <a href="landingpage.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+      `;
+      if (loggedIn) {
+        navLinks += `<a href="jobboard.html">Job Board</a>`;
+        if (role === "employer") {
+          navLinks += `<a href="postjob.html" id="postJobLink">Post a Job</a>`;
+        }
+      }
+      document.getElementById("navLinks").innerHTML = navLinks;
+
+      let navButtons = "";
+      if (loggedIn) {
+        navButtons = `<button id="logoutBtn" class="logout-red-btn">Logout</button>`;
+      } else {
+        navButtons = `
+          <a href="login.html" class="login-btn">Login</a>
+          <a href="login.html" class="get-started-btn">Get Started</a>
+        `;
+      }
+      document.getElementById("navButtons").innerHTML = navButtons;
+
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) {
+        logoutBtn.onclick = function() {
+          signOut(auth).then(() => {
+            localStorage.clear();
+            renderNav(false, null);
+            window.location.href = "landingpage.html";
+          });
+        };
+      }
+    }
+
+    let loggedInUser = null;
+    let loggedInEmail = null;
+    let loggedInRole = null;
+
     function getCurrentUserInfo(user) {
       let role = "";
       let name = "";
@@ -555,19 +573,27 @@
       return { role, name, email };
     }
 
-    // --- JOB DISPLAY/CRUD LOGIC ---
+    // --- JOB DISPLAY/CRUD LOGIC UPDATED FOR FIRESTORE ---
     const jobCards = document.getElementById('jobCards');
     let editingJobId = null;
+    let allPostedJobs = [];
 
-    function loadJobs() {
-      let postedJobs = [];
+    // Load jobs from Firestore
+    async function loadFirestoreJobs() {
+      let jobs = [];
       try {
-        postedJobs = JSON.parse(localStorage.getItem('jobs') || "[]");
-      } catch (e) {}
-      postedJobs.forEach((job, i) => {
-        if (!job.id) job.id = "job" + (job.postedAt || "") + i;
-      });
-      return [...staticJobs, ...postedJobs];
+        const snapshot = await getDocs(collection(db, "jobs"));
+        snapshot.forEach(docSnap => {
+          jobs.push({ ...docSnap.data(), id: docSnap.id });
+        });
+      } catch (e) { }
+      return jobs;
+    }
+
+    async function loadJobs() {
+      const postedJobs = await loadFirestoreJobs();
+      allPostedJobs = postedJobs;
+      return postedJobs;
     }
 
     function renderJobs(jobs, userEmail, userRole) {
@@ -636,52 +662,57 @@
       }
     };
 
-    document.getElementById('editJobForm').onsubmit = function(e) {
+    document.getElementById('editJobForm').onsubmit = async function(e) {
       e.preventDefault();
-      let jobs = [];
-      try { jobs = JSON.parse(localStorage.getItem('jobs') || "[]"); } catch (e) {}
-      const idx = jobs.findIndex(j => j.id === editingJobId);
-      if (idx > -1) {
-        jobs[idx].title = document.getElementById('editTitle').value.trim();
-        jobs[idx].company = document.getElementById('editCompany').value.trim();
-        jobs[idx].location = document.getElementById('editLocation').value.trim();
-        jobs[idx].type = document.getElementById('editType').value;
-        jobs[idx].description = document.getElementById('editDescription').value.trim();
-        jobs[idx].telephone = document.getElementById('editTelephone').value.trim();
-        localStorage.setItem('jobs', JSON.stringify(jobs));
-        renderJobs([...staticJobs, ...jobs], loggedInEmail, loggedInRole);
-        document.getElementById('editModalBg').style.display = "none";
-        editingJobId = null;
+      const job = allPostedJobs.find(j => j.id === editingJobId);
+      if (job) {
+        const updated = {
+          title: document.getElementById('editTitle').value.trim(),
+          company: document.getElementById('editCompany').value.trim(),
+          location: document.getElementById('editLocation').value.trim(),
+          type: document.getElementById('editType').value,
+          description: document.getElementById('editDescription').value.trim(),
+          telephone: document.getElementById('editTelephone').value.trim()
+        };
+        try {
+          await updateDoc(doc(db, "jobs", job.id), updated);
+          const jobs = await loadJobs();
+          renderJobs(jobs, loggedInEmail, loggedInRole);
+          document.getElementById('editModalBg').style.display = "none";
+          editingJobId = null;
+        } catch (err) {
+          alert("Failed to update job. Please try again.");
+        }
       }
     };
 
-    jobCards.onclick = function(e) {
+    jobCards.onclick = async function(e) {
       if (e.target.classList.contains('edit-btn')) {
         const jobId = e.target.getAttribute('data-jobid');
-        let jobs = [];
-        try { jobs = JSON.parse(localStorage.getItem('jobs') || "[]"); } catch (e) {}
-        const job = jobs.find(j => j.id === jobId);
+        const job = allPostedJobs.find(j => j.id === jobId);
         if (job) openEditModal(job);
       }
       if (e.target.classList.contains('delete-btn')) {
         const jobId = e.target.getAttribute('data-jobid');
         if (!confirm('Are you sure you want to delete this job?')) return;
-        let jobs = [];
-        try { jobs = JSON.parse(localStorage.getItem('jobs') || "[]"); } catch (e) {}
-        jobs = jobs.filter(j => j.id !== jobId);
-        localStorage.setItem('jobs', JSON.stringify(jobs));
-        renderJobs([...staticJobs, ...jobs], loggedInEmail, loggedInRole);
+        try {
+          await deleteDoc(doc(db, "jobs", jobId));
+          const jobs = await loadJobs();
+          renderJobs(jobs, loggedInEmail, loggedInRole);
+        } catch (err) {
+          alert("Failed to delete job. Please try again.");
+        }
       }
     };
 
-    document.getElementById('filterForm').onsubmit = function(e) {
+    document.getElementById('filterForm').onsubmit = async function(e) {
       e.preventDefault();
       const form = e.target;
       const search = form.search.value.trim().toLowerCase();
       const location = form.location.value;
       const category = form.category.value;
-      let jobs = loadJobs();
-      jobs = jobs.filter(job => {
+      const jobs = await loadJobs();
+      const filtered = jobs.filter(job => {
         let matches = true;
         if (search) {
           matches = (
@@ -694,23 +725,26 @@
         if (category) matches = matches && job.type === category;
         return matches;
       });
-      renderJobs(jobs, loggedInEmail, loggedInRole);
+      renderJobs(filtered, loggedInEmail, loggedInRole);
     };
 
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       loggedInUser = user;
       const { role, email } = getCurrentUserInfo(user);
       loggedInEmail = email;
       loggedInRole = role;
       renderNav(!!user, role);
-      const jobs = loadJobs();
+      // Add static jobs to DB if not present
+      await addStaticJobsIfNotExist();
+      const jobs = await loadJobs();
       renderJobs(jobs, loggedInEmail, loggedInRole);
     });
 
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener('DOMContentLoaded', async () => {
       if (!loggedInUser) {
         renderNav(false, null);
-        const jobs = loadJobs();
+        await addStaticJobsIfNotExist();
+        const jobs = await loadJobs();
         renderJobs(jobs, null, null);
       }
     });
