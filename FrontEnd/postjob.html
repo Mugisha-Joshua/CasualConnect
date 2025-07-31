@@ -91,10 +91,26 @@
       }
       .hamburger { display: block; }
     }
+    /* Red logout button */
+    #logoutBtn {
+      background: #e53935;
+      color: #fff;
+      border: none;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 0.6rem 1.5rem;
+      margin-left: 1rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    #logoutBtn:hover {
+      background: #b71c1c;
+    }
   </style>
 </head>
 <body>
-  <!-- Responsive Navbar (same as other pages) -->
+  <!-- Responsive Navbar (with only one logout button and rest of nav as is) -->
   <header>
     <div class="logo">CasualConnect</div>
     <div class="hamburger" onclick="toggleMenu()">
@@ -112,8 +128,7 @@
           <a href="contact.html">Contact</a>
         </div>
         <div class="nav-buttons">
-          <a href="login.html" class="login-btn">Login</a>
-          <a href="login.html" class="get-started-btn">Get Started</a>
+          <button id="logoutBtn" type="button">Logout</button>
         </div>
       </div>
     </nav>
@@ -208,7 +223,7 @@
         if (role === "employer") {
           if (postJobLink) postJobLink.style.display = "inline-block";
         } else {
-          document.querySelector(".container").innerHTML = 
+          document.querySelector(".container").innerHTML =
             "<h2>Access Denied</h2><div class='error'>Only registered employers can post jobs.</div>";
           if (postJobLink) postJobLink.style.display = "none";
         }
@@ -285,7 +300,7 @@
       setTimeout(() => { window.location.href = "jobboard.html"; }, 1200);
     });
 
-    // Logout function (just redirect for now)
+    // Logout function
     document.getElementById('logoutBtn').onclick = function() {
       signOut(auth).then(() => {
         localStorage.clear();
