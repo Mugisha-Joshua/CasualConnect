@@ -4,31 +4,21 @@ A modern web application for job board management built with HTML, CSS, and Java
 
 ---
 
-## 🚀 Features
+## 🚀 How to Use CasualConnect
 
-- Responsive, modern UI for job listings
-- Easy job posting and management
-- Simple deployment with Firebase Hosting
-- Continuous Deployment via GitHub Actions (optional)
+### 1. **Access the Live Website**
 
----
+The fastest way to use CasualConnect is to visit the deployed site:
 
-## 🛠 Prerequisites
+👉 [https://casualconnect-001.web.app/](https://casualconnect-001.web.app/)
 
-Make sure you have the following installed:
-
-- [Node.js & npm](https://nodejs.org/) (v14 or later recommended)
-- [Firebase CLI](https://firebase.google.com/docs/cli)  
-  Install with:  
-  ```bash
-  npm install -g firebase-tools
-  ```
-- A [Google account](https://accounts.google.com/) for Firebase
-- A [GitHub account](https://github.com/) (if you want automatic deploys)
+No installation or setup required—just open the link and start exploring!
 
 ---
 
-## ⚡️ Setup Instructions
+## 🛠 Local Setup and Development
+
+If you'd like to run the project locally or contribute, follow these steps:
 
 ### 1. **Clone the Repository**
 
@@ -146,5 +136,3 @@ Contributions are welcome! Please open issues or submit pull requests.
 ## 🤝 Support
 
 For issues, open a [GitHub Issue](https://github.com/Mugisha-Joshua/CasualConnect/issues) or contact the maintainer.
-# CasualConnect
-This is a project aimed at bridging the gap between local job seekers and small businesses or households looking for informal workers(e.g., domestic help, shop assistants, casual laborers) by offering a simple, web-based job posting and browsing platform accessible via mobile devices or on the internet.
