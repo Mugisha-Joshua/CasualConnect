@@ -10,7 +10,7 @@ A modern web application for job board management built with HTML, CSS, and Java
 
 The fastest way to use CasualConnect is to visit the deployed site:
 
-👉 [https://casualconnect-001.web.app/](https://casualconnect-001.web.app/)
+👉 [(https://casualconnect-001.web.app/](https://casualconnect.netlify.app/))
 
 No installation or setup required—just open the link and start exploring!
 
